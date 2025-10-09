@@ -1,6 +1,7 @@
 {{ form_start(formVisite) }}
-        <div class="row">
-            <div class="col">
+    <div class="row">
+        <div class="col">
+            <div class="row">
                 <div class="col-auto">
                     {{ form_row(formVisite.datecreation) }}
                 </div>
@@ -20,10 +21,22 @@
         </div>
         <div class="col">
             <!-- emplacement image -->
-        </div>
-        <div class="row">
-            <div class="col">
-                {{ form_row(formVisite.avis) }}
+            <div>
+                {{ form_row(formVisite.imageFile) }}
+            </div>
+            <div>
+                image actuelle
+                {% if visite.imageName %}
+                    <img src="{{ app.request.getBasePath()~vich_uploader_asset(visite, 'imageFile') }}" class="card-img-top" style="width:100%;height:auto;">
+                {% else %}
+                    <p>(aucune image)</p>
+                {% endif %}
             </div>
         </div>
-    {{ form_end(formVisite) }}
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(formVisite.avis) }}
+        </div>
+    </div>
+{{ form_end(formVisite) }}

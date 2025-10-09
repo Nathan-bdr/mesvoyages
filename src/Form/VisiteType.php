@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 
 class VisiteType extends AbstractType
@@ -39,6 +41,12 @@ class VisiteType extends AbstractType
                 'choice_label' => 'nom',
                 'multiple' => true,
                 'required' => false
+            ])
+            ->add('imageFile', VichFileType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => false,
+                'label' => 'Sélection image'
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer'
