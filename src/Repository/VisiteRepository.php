@@ -84,4 +84,15 @@ class VisiteRepository extends ServiceEntityRepository
            ->getQuery()
            ->getResult();
     }
+    
+    public function findVisitesByEnvironnement(string $valeur): array
+    {
+        return $this->createQueryBuilder('v')
+            ->join('v.environnements', 'e')
+            ->where('e.nom = :valeur')
+            ->setParameter('valeur', $valeur)
+            ->orderBy('v.datecreation', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

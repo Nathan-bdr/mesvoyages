@@ -47,6 +47,23 @@ class VoyagesController extends AbstractController {
         ]);
     }
     
+    #[Route('/voyages/filtre/environnement', name: 'voyages.findbyenvironnement')]
+    public function findByEnvironnement(Request $request): Response
+    {
+        if ($this->isCsrfTokenValid('filtre_environnement', $request->get('_token'))) {
+            $valeur = $request->get('recherche');
+            if ($valeur === '' || $valeur === null) {
+                $visites = $this->repository->findAllOrderBy('datecreation', 'DESC');
+            } else {
+                $visites = $this->repository->findVisitesByEnvironnement($valeur);
+            }
+            return $this->render(self::PAGEVOYAGES, [
+                'visites' => $visites
+            ]);
+        }
+        return $this->redirectToRoute('voyages');
+    }
+    
     /**
     * 
     * @var VisiteRepository
